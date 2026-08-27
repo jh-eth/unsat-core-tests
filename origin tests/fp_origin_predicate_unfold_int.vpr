@@ -27,6 +27,5 @@ method caller()
   fold PosField(r)
   hide(r)
   unfold PosField(r)
-  x := r.f
-  assert unused_pre_predicate_unfold_int(x) == 0
+  assert unused_pre_predicate_unfold_int(r.f) == 0
 }
