@@ -1,0 +1,16 @@
+// Function false-positive test: Ref parameter, direct allocation.
+// The precondition r != null is unused by the function body.
+// Caller defines r by allocating a fresh object.
+
+function unused_ref_direct(r: Ref): Bool
+  requires r != null
+{
+  true
+}
+
+method caller()
+{
+  var r: Ref
+  r := new()
+  assert unused_ref_direct(r) == true
+}

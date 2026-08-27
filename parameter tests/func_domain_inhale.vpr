@@ -1,0 +1,20 @@
+// Function false-positive test: domain parameter, inhale-established fact.
+// The precondition token_valid(t) is unused by the function body.
+// Caller defines an unconstrained domain value and inhales the precondition.
+
+domain Token {
+  function token_valid(t: Token): Bool
+}
+
+function unused_domain_inhale(t: Token): Bool
+  requires token_valid(t)
+{
+  true
+}
+
+method caller()
+{
+  var t: Token
+  inhale token_valid(t)
+  assert unused_domain_inhale(t) == true
+}

@@ -1,0 +1,16 @@
+// Function false-positive test: Int parameter, direct assignment.
+// The precondition x > 0 is unused by the function body.
+// Caller defines x by direct assignment.
+
+function unused_int_direct(x: Int): Bool
+  requires x > 0
+{
+  true
+}
+
+method caller()
+{
+  var x: Int
+  x := 5
+  assert unused_int_direct(x) == true
+}

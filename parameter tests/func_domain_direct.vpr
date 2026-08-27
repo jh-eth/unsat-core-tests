@@ -1,0 +1,25 @@
+// Function false-positive test: domain parameter, direct assignment via domain function.
+// The precondition token_valid(t) is unused by the function body.
+// Caller defines t by direct assignment.
+
+domain Token {
+  function mk_token(x: Int): Token
+  function token_valid(t: Token): Bool
+
+  axiom ValidCreatedTokens {
+    forall x: Int :: token_valid(mk_token(x))
+  }
+}
+
+function unused_domain_direct(t: Token): Bool
+  requires token_valid(t)
+{
+  true
+}
+
+method caller()
+{
+  var t: Token
+  t := mk_token(1)
+  assert unused_domain_direct(t) == true
+}

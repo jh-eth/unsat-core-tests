@@ -1,0 +1,16 @@
+// Function false-positive test: Bool parameter, direct assignment.
+// The precondition b is unused by the function body.
+// Caller defines b by direct assignment.
+
+function unused_bool_direct(b: Bool): Bool
+  requires b
+{
+  true
+}
+
+method caller()
+{
+  var b: Bool
+  b := true
+  assert unused_bool_direct(b) == true
+}

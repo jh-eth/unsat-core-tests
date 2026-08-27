@@ -1,0 +1,16 @@
+// Function false-positive test: Map[Int, Int] parameter, direct assignment.
+// The precondition 1 in m is unused by the function body.
+// Caller defines m by direct assignment.
+
+function unused_map_direct(m: Map[Int, Int]): Bool
+  requires 1 in m
+{
+  true
+}
+
+method caller()
+{
+  var m: Map[Int, Int]
+  m := Map(1 := 10)
+  assert unused_map_direct(m) == true
+}

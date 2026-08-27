@@ -1,0 +1,16 @@
+// Function false-positive test: Ref parameter, inhale-established fact.
+// The precondition r != null is unused by the function body.
+// Caller defines an unconstrained r and inhales the precondition.
+
+function unused_ref_inhale(r: Ref): Bool
+  requires r != null
+{
+  true
+}
+
+method caller()
+{
+  var r: Ref
+  inhale r != null
+  assert unused_ref_inhale(r) == true
+}

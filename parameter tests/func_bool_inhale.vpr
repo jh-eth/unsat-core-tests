@@ -1,0 +1,15 @@
+// Function false-positive test: Bool parameter, inhale-established fact.
+// The precondition b is unused by the function body.
+
+function unused_bool_inhale(b: Bool): Bool
+  requires b
+{
+  true
+}
+
+method caller()
+{
+  var b: Bool
+  inhale b
+  assert unused_bool_inhale(b) == true
+}

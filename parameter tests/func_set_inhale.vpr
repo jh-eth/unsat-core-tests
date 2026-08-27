@@ -1,0 +1,16 @@
+// Function false-positive test: Set[Int] parameter, inhale-established fact.
+// The precondition 1 in s is unused by the function body.
+// Caller defines an unconstrained set and inhales the precondition.
+
+function unused_set_inhale(s: Set[Int]): Int
+  requires 1 in s
+{
+  0
+}
+
+method caller()
+{
+  var s: Set[Int]
+  inhale 1 in s
+  assert unused_set_inhale(s) == 0
+}

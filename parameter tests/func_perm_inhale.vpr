@@ -1,0 +1,16 @@
+// Function false-positive test: Perm parameter, inhale-established fact.
+// The precondition p > none is unused by the function body.
+// Caller defines an unconstrained permission value and inhales the precondition.
+
+function unused_perm_inhale(p: Perm): Bool
+  requires p > none
+{
+  true
+}
+
+method caller()
+{
+  var p: Perm
+  inhale p > none
+  assert unused_perm_inhale(p) == true
+}

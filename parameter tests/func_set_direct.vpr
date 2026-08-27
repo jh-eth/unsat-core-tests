@@ -1,0 +1,16 @@
+// Function false-positive test: Set[Int] parameter, direct assignment.
+// The precondition 1 in s is unused by the function body.
+// Caller defines s by direct assignment.
+
+function unused_set_direct(s: Set[Int]): Bool
+  requires 1 in s
+{
+  true
+}
+
+method caller()
+{
+  var s: Set[Int]
+  s := Set(1)
+  assert unused_set_direct(s) == true
+}

@@ -1,0 +1,16 @@
+// Function false-positive test: Seq[Int] parameter, inhale-established fact.
+// The precondition |s| > 0 is unused by the function body.
+// Caller defines an unconstrained sequence and inhales the precondition.
+
+function unused_seq_inhale(s: Seq[Int]): Bool
+  requires 1 in s
+{
+  true
+}
+
+method caller()
+{
+  var s: Seq[Int]
+  inhale 1 in s
+  assert unused_seq_inhale(s) == true
+}

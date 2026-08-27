@@ -1,0 +1,16 @@
+// Function false-positive test: Map[Int, Int] parameter, inhale-established fact.
+// The precondition 1 in m is unused by the function body.
+// Caller defines an unconstrained map and inhales the precondition.
+
+function unused_map_inhale(m: Map[Int, Int]): Bool
+  requires 1 in m
+{
+  true
+}
+
+method caller()
+{
+  var m: Map[Int, Int]
+  inhale 1 in m
+  assert unused_map_inhale(m) == true
+}

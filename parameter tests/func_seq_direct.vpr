@@ -1,0 +1,16 @@
+// Function false-positive test: Seq[Int] parameter, direct assignment.
+// The precondition 1 in s is unused by the function body.
+// Caller defines s by direct assignment.
+
+function unused_seq_direct(s: Seq[Int]): Bool
+  requires 1 in s
+{
+  true
+}
+
+method caller()
+{
+  var s: Seq[Int]
+  s := Seq(1)
+  assert unused_seq_direct(s) == true
+}

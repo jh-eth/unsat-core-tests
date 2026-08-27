@@ -1,0 +1,16 @@
+// Function false-positive test: Perm parameter, direct assignment.
+// The precondition p > none is unused by the function body.
+// Caller defines p by direct assignment.
+
+function unused_perm_direct(p: Perm): Bool
+  requires p > none
+{
+  true
+}
+
+method caller()
+{
+  var p: Perm
+  p := write
+  assert unused_perm_direct(p) == true
+}

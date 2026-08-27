@@ -1,0 +1,16 @@
+// Function false-positive test: Int parameter, inhale-established fact.
+// The precondition x > 0 is unused by the function body.
+// Caller defines a constraint on x and inhales the precondition.
+
+function unused_int_inhale(x: Int): Bool
+  requires x > 0
+{
+  true
+}
+
+method caller()
+{
+  var x: Int
+  inhale x == 1
+  assert unused_int_inhale(x) == true
+}
