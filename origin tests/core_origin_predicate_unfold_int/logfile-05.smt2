@@ -1,6 +1,6 @@
 (get-info :version)
 ; (:version "4.8.12")
-; Started: 2026-08-27 09:28:50
+; Started: 2026-08-27 14:06:07
 ; Silicon.version: 1.1-SNAPSHOT (b40ab96f+@hollensteinj/path-sensitive_analysis)
 ; Input file: /workspaces/develop/precision_tests/viper_function_unused_precondition_value_origins/fp_origin_predicate_unfold_int.vpr
 ; Verifier id: 00
@@ -181,11 +181,11 @@
       (ite $$analysisLabel$$@4@05 $Perm.Write $Perm.No)
       ($Perm.min (ite $$analysisLabel$$@4@05 $Perm.Write $Perm.No) $Perm.Write))
     $Perm.No)
-  $Perm.No)) :named assertion_68))
+  $Perm.No)) :named assertion_70))
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (assertion_68)
+; unsat core: (assertion_70)
 (pop) ; 3
 ; 0.00s
 ; (get-info :all-statistics)
@@ -210,7 +210,7 @@
 ; 0.00s
 ; (get-info :all-statistics)
 (declare-const $$analysisLabel$$@8@05 Bool)
-(assert (! $$analysisLabel$$@8@05 :named assumption_73))
+(assert (! $$analysisLabel$$@8@05 :named assumption_76))
 (assert (! (<= $Perm.No (ite $$analysisLabel$$@8@05 $Perm.Write $Perm.No)) :named assumption_79))
 (assert (! (<= (ite $$analysisLabel$$@8@05 $Perm.Write $Perm.No) $Perm.Write) :named assumption_80))
 (assert (! (=> $$analysisLabel$$@8@05 (not (= r@2@05 $Ref.null))) :named assumption_81))
@@ -253,7 +253,7 @@
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (assumption_73 assertion_87)
+; unsat core: (assumption_76 assertion_87)
 (pop) ; 3
 ; 0.00s
 ; (get-info :all-statistics)
@@ -263,7 +263,7 @@
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (assumption_73 assertion_88)
+; unsat core: (assumption_76 assertion_88)
 (pop) ; 3
 ; 0.00s
 ; (get-info :all-statistics)
@@ -424,7 +424,9 @@
 ; unknown
 (assert (! (PosField%trigger $t@15@05 r@2@05) :named assumption_126))
 ; [exec]
-; x := r.f
+; assert unused_pre_predicate_unfold_int(r.f) == 0
+; [eval] unused_pre_predicate_unfold_int(r.f) == 0
+; [eval] unused_pre_predicate_unfold_int(r.f)
 (set-option :rlimit 0)
 (push) ; 3
 (assert (! (not $$analysisLabel$$@19@05) :named assertion_127))
@@ -435,42 +437,40 @@
 (pop) ; 3
 ; 0.00s
 ; (get-info :all-statistics)
-(declare-const x@20@05 Int)
-(assert (! (= x@20@05 ($SortWrappers.$SnapToInt ($Snap.first $t@15@05))) :named assumption_128))
-; [exec]
-; assert unused_pre_predicate_unfold_int(x) == 0
-; [eval] unused_pre_predicate_unfold_int(x) == 0
-; [eval] unused_pre_predicate_unfold_int(x)
 (push) ; 3
-(declare-const $t@21@05 Int)
-(assert (! (= $t@21@05 x@20@05) :named assumption_129))
+(declare-const $t@20@05 Int)
+(assert (! (= $t@20@05 ($SortWrappers.$SnapToInt ($Snap.first $t@15@05))) :named assumption_128))
 ; [eval] x > 0
 (push) ; 4
-(assert (! (not (> $t@21@05 0)) :named assertion_130))
+(assert (! (not (> $t@20@05 0)) :named assertion_129))
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (assumption_125 assumption_128 assumption_129 assertion_130)
+; unsat core: (assumption_125 assumption_128 assertion_129)
 (pop) ; 4
 ; 0.00s
 ; (get-info :all-statistics)
-(assert (! (> $t@21@05 0) :named assumption_131))
-(assert (! (unused_pre_predicate_unfold_int%precondition $Snap.unit x@20@05) :named assumption_132))
+(assert (! (> $t@20@05 0) :named assumption_130))
+(assert (! (unused_pre_predicate_unfold_int%precondition $Snap.unit ($SortWrappers.$SnapToInt ($Snap.first $t@15@05))) :named assumption_131))
 (pop) ; 3
 ; Joined path conditions
 (assert (! (and
-  (= $t@21@05 x@20@05)
-  (> $t@21@05 0)
-  (unused_pre_predicate_unfold_int%precondition $Snap.unit x@20@05)) :named assumption_133))
+  (= $t@20@05 ($SortWrappers.$SnapToInt ($Snap.first $t@15@05)))
+  (> $t@20@05 0)
+  (unused_pre_predicate_unfold_int%precondition $Snap.unit ($SortWrappers.$SnapToInt ($Snap.first $t@15@05)))) :named assumption_132))
 (push) ; 3
-(assert (! (not (= (unused_pre_predicate_unfold_int $Snap.unit x@20@05) 0)) :named assertion_134))
+(assert (! (not (=
+  (unused_pre_predicate_unfold_int $Snap.unit ($SortWrappers.$SnapToInt ($Snap.first $t@15@05)))
+  0)) :named assertion_133))
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (axiom_29 assumption_128 assertion_134 assumption_133)
+; unsat core: (axiom_29 assumption_132 assertion_133)
 (pop) ; 3
 ; 0.00s
 ; (get-info :all-statistics)
-(assert (! (= (unused_pre_predicate_unfold_int $Snap.unit x@20@05) 0) :named assumption_135))
+(assert (! (=
+  (unused_pre_predicate_unfold_int $Snap.unit ($SortWrappers.$SnapToInt ($Snap.first $t@15@05)))
+  0) :named assumption_134))
 (pop) ; 2
 (pop) ; 1

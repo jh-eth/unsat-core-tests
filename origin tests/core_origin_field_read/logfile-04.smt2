@@ -1,6 +1,6 @@
 (get-info :version)
 ; (:version "4.8.12")
-; Started: 2026-08-27 08:45:55
+; Started: 2026-08-27 14:03:44
 ; Silicon.version: 1.1-SNAPSHOT (b40ab96f+@hollensteinj/path-sensitive_analysis)
 ; Input file: /workspaces/develop/precision_tests/viper_function_unused_precondition_value_origins/fp_origin_field_read_int.vpr
 ; Verifier id: 00

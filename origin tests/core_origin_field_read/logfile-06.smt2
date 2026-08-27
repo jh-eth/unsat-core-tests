@@ -1,6 +1,6 @@
 (get-info :version)
 ; (:version "4.8.12")
-; Started: 2026-08-27 08:45:55
+; Started: 2026-08-27 14:03:44
 ; Silicon.version: 1.1-SNAPSHOT (b40ab96f+@hollensteinj/path-sensitive_analysis)
 ; Input file: /workspaces/develop/precision_tests/viper_function_unused_precondition_value_origins/fp_origin_field_read_int.vpr
 ; Verifier id: 00
@@ -153,32 +153,29 @@
 ; var r: Ref
 (declare-const r@0@06 $Ref)
 ; [exec]
-; var x: Int
-(declare-const x@1@06 Int)
-; [exec]
 ; r := new(f)
-(declare-const r@2@06 $Ref)
-(assert (! (not (= r@2@06 $Ref.null)) :named assumption_37))
-(declare-const f@3@06 Int)
-(declare-const $$analysisLabel$$@4@06 Bool)
-(assert (! $$analysisLabel$$@4@06 :named assumption_38))
-(assert (! (not (= r@2@06 r@0@06)) :named assumption_40))
+(declare-const r@1@06 $Ref)
+(assert (! (not (= r@1@06 $Ref.null)) :named assumption_37))
+(declare-const f@2@06 Int)
+(declare-const $$analysisLabel$$@3@06 Bool)
+(assert (! $$analysisLabel$$@3@06 :named assumption_38))
+(assert (! (not (= r@1@06 r@0@06)) :named assumption_40))
 ; [exec]
 ; r.f := 5
-(declare-const f@5@06 Int)
-(assert (! (= f@5@06 5) :named assumption_41))
+(declare-const f@4@06 Int)
+(assert (! (= f@4@06 5) :named assumption_41))
+(declare-const $$analysisLabel$$@5@06 Bool)
+(assert (! $$analysisLabel$$@5@06 :named assumption_42))
 (declare-const $$analysisLabel$$@6@06 Bool)
-(assert (! $$analysisLabel$$@6@06 :named assumption_42))
-(declare-const $$analysisLabel$$@7@06 Bool)
-(assert (! $$analysisLabel$$@7@06 :named assumption_44))
+(assert (! $$analysisLabel$$@6@06 :named assumption_44))
 (push) ; 3
 (set-option :rlimit 100000)
 (assert (! (not (=
   (ite
-    $$analysisLabel$$@6@06
+    $$analysisLabel$$@5@06
     (-
-      (ite $$analysisLabel$$@4@06 $Perm.Write $Perm.No)
-      ($Perm.min (ite $$analysisLabel$$@4@06 $Perm.Write $Perm.No) $Perm.Write))
+      (ite $$analysisLabel$$@3@06 $Perm.Write $Perm.No)
+      ($Perm.min (ite $$analysisLabel$$@3@06 $Perm.Write $Perm.No) $Perm.Write))
     $Perm.No)
   $Perm.No)) :named assertion_46))
 (check-sat)
@@ -194,12 +191,12 @@
   (=
     (-
       $Perm.Write
-      ($Perm.min (ite $$analysisLabel$$@4@06 $Perm.Write $Perm.No) $Perm.Write))
+      ($Perm.min (ite $$analysisLabel$$@3@06 $Perm.Write $Perm.No) $Perm.Write))
     $Perm.No)
   (<
     (-
       $Perm.Write
-      ($Perm.min (ite $$analysisLabel$$@4@06 $Perm.Write $Perm.No) $Perm.Write))
+      ($Perm.min (ite $$analysisLabel$$@3@06 $Perm.Write $Perm.No) $Perm.Write))
     $Perm.No))) :named assertion_47))
 (check-sat)
 ; unsat
@@ -208,15 +205,17 @@
 (pop) ; 3
 ; 0.00s
 ; (get-info :all-statistics)
-(declare-const $$analysisLabel$$@8@06 Bool)
-(assert (! $$analysisLabel$$@8@06 :named assumption_48))
-(assert (! (<= $Perm.No (ite $$analysisLabel$$@8@06 $Perm.Write $Perm.No)) :named assumption_51))
-(assert (! (<= (ite $$analysisLabel$$@8@06 $Perm.Write $Perm.No) $Perm.Write) :named assumption_52))
-(assert (! (=> $$analysisLabel$$@8@06 (not (= r@2@06 $Ref.null))) :named assumption_53))
+(declare-const $$analysisLabel$$@7@06 Bool)
+(assert (! $$analysisLabel$$@7@06 :named assumption_48))
+(assert (! (<= $Perm.No (ite $$analysisLabel$$@7@06 $Perm.Write $Perm.No)) :named assumption_51))
+(assert (! (<= (ite $$analysisLabel$$@7@06 $Perm.Write $Perm.No) $Perm.Write) :named assumption_52))
+(assert (! (=> $$analysisLabel$$@7@06 (not (= r@1@06 $Ref.null))) :named assumption_53))
 ; [exec]
-; x := r.f
+; assert unused_pre_field_read_int(r.f) == 0
+; [eval] unused_pre_field_read_int(r.f) == 0
+; [eval] unused_pre_field_read_int(r.f)
 (push) ; 3
-(assert (! (not $$analysisLabel$$@8@06) :named assertion_54))
+(assert (! (not $$analysisLabel$$@7@06) :named assertion_54))
 (check-sat)
 ; unsat
 (get-unsat-core)
@@ -224,42 +223,36 @@
 (pop) ; 3
 ; 0.00s
 ; (get-info :all-statistics)
-(declare-const x@9@06 Int)
-(assert (! (= x@9@06 f@5@06) :named assumption_55))
-; [exec]
-; assert unused_pre_field_read_int(x) == 0
-; [eval] unused_pre_field_read_int(x) == 0
-; [eval] unused_pre_field_read_int(x)
 (push) ; 3
-(declare-const $t@10@06 Int)
-(assert (! (= $t@10@06 x@9@06) :named assumption_56))
+(declare-const $t@8@06 Int)
+(assert (! (= $t@8@06 f@4@06) :named assumption_55))
 ; [eval] x > 0
 (push) ; 4
-(assert (! (not (> $t@10@06 0)) :named assertion_57))
+(assert (! (not (> $t@8@06 0)) :named assertion_56))
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (assumption_41 assumption_55 assumption_56 assertion_57)
+; unsat core: (assumption_41 assumption_55 assertion_56)
 (pop) ; 4
 ; 0.00s
 ; (get-info :all-statistics)
-(assert (! (> $t@10@06 0) :named assumption_58))
-(assert (! (unused_pre_field_read_int%precondition $Snap.unit x@9@06) :named assumption_59))
+(assert (! (> $t@8@06 0) :named assumption_57))
+(assert (! (unused_pre_field_read_int%precondition $Snap.unit f@4@06) :named assumption_58))
 (pop) ; 3
 ; Joined path conditions
 (assert (! (and
-  (= $t@10@06 x@9@06)
-  (> $t@10@06 0)
-  (unused_pre_field_read_int%precondition $Snap.unit x@9@06)) :named assumption_60))
+  (= $t@8@06 f@4@06)
+  (> $t@8@06 0)
+  (unused_pre_field_read_int%precondition $Snap.unit f@4@06)) :named assumption_59))
 (push) ; 3
-(assert (! (not (= (unused_pre_field_read_int $Snap.unit x@9@06) 0)) :named assertion_61))
+(assert (! (not (= (unused_pre_field_read_int $Snap.unit f@4@06) 0)) :named assertion_60))
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (axiom_15 assumption_41 assumption_55 assumption_60 assertion_61)
+; unsat core: (axiom_15 assumption_41 assumption_59 assertion_60)
 (pop) ; 3
 ; 0.00s
 ; (get-info :all-statistics)
-(assert (! (= (unused_pre_field_read_int $Snap.unit x@9@06) 0) :named assumption_62))
+(assert (! (= (unused_pre_field_read_int $Snap.unit f@4@06) 0) :named assumption_61))
 (pop) ; 2
 (pop) ; 1
