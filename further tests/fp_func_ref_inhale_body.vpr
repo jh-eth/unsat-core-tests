@@ -1,0 +1,20 @@
+// Ref/inhale test with one used and one unused precondition.
+// r != null determines the asserted result. u != null is required only to
+// admit the call. The exact equality u == r establishes the unused condition.
+
+function used_unused_ref_inhale(r: Ref, u: Ref, v: Ref): Int
+  requires r != null && u != null
+{
+  r == null ? 0 : 1
+}
+
+method caller()
+{
+  var r: Ref
+  var u: Ref
+  var v: Ref
+  inhale u != null
+  inhale u == v
+  inhale r != null
+  assert used_unused_ref_inhale(r, u, v) == 1
+}

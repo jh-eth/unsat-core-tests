@@ -1,0 +1,20 @@
+// Map[Int, Int]/inhale test with one used and one unused precondition.
+// 1 in m makes m[1] well-defined. 2 in n is required only to admit the call.
+// The exact equality n == Map(2 := 20) establishes the unused condition.
+
+function used_unused_map_inhale(m: Map[Int, Int], n: Map[Int, Int], o: Map[Int, Int]): Int
+  requires 1 in m && 2 in n
+{
+  m[1]
+}
+
+method caller()
+{
+  var m: Map[Int, Int]
+  var n: Map[Int, Int]
+  var o: Map[Int, Int]
+  inhale n == Map(2 := 20)
+  inhale n == o
+  inhale 1 in m
+  assert used_unused_map_inhale(m, n, o) == m[1]
+}

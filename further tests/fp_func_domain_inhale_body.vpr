@@ -1,0 +1,24 @@
+// Domain/inhale test with one used and one unused precondition.
+// token_valid(t) determines the asserted result. token_valid(u) is required
+// only to admit the call. The exact equality u == t establishes it.
+
+domain Token {
+  function token_valid(t: Token): Bool
+}
+
+function domain_inhale_body(t: Token, u: Token, v: Token): Bool
+  requires token_valid(t) && token_valid(u)
+{
+  token_valid(t) ? true : false
+}
+
+method caller()
+{
+  var t: Token
+  var u: Token
+  var v: Token
+  inhale token_valid(u)
+  inhale u == v
+  inhale token_valid(t)
+  assert domain_inhale_body(t, u, v) == true
+}

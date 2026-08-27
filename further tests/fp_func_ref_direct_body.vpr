@@ -1,0 +1,18 @@
+// Ref/direct-allocation test with one used and one unused precondition.
+// r != null determines the asserted result. u != null is required only to
+// admit the call. The allocation assigned to u is the candidate dependency.
+
+function ref_direct_body(r: Ref, u: Ref): Int
+  requires r != null && u != null
+{
+  r == null ? 0 : 1
+}
+
+method caller()
+{
+  var r: Ref
+  var u: Ref
+  u := new()
+  r := new()
+  assert ref_direct_body(r, u) == 1
+}

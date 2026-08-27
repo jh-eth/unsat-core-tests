@@ -1,0 +1,20 @@
+// Int/inhale test with one used and one unused precondition.
+// x > 0 determines the asserted result. y < 10 is required only to admit
+// the call. The exact equality for y is the candidate spurious dependency.
+
+function int_inhale_body(x: Int, y: Int, z: Int): Int
+  requires x > 0 && y < 10
+{
+  x
+}
+
+method caller()
+{
+  var x: Int
+  var y: Int
+  var z: Int
+  inhale y < 8
+  inhale z == y
+  inhale x == 2
+  assert int_inhale_body(x, y, z) > 0
+}

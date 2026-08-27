@@ -1,0 +1,20 @@
+// Seq[Int]/inhale test with one used and one unused precondition.
+// |s| > 0 makes s[0] well-defined. |t| > 0 is required only to admit the
+// call. The exact equality t == Seq(7) establishes the unused condition.
+
+function seq_inhale_body(s: Seq[Int], t: Seq[Int], u: Seq[Int]): Int
+  requires |s| > 0 && |t| > 0
+{
+  s[0]
+}
+
+method caller()
+{
+  var s: Seq[Int]
+  var t: Seq[Int]
+  var u: Seq[Int]
+  inhale t == Seq(7)
+  inhale u == t
+  inhale |s| > 0
+  assert seq_inhale_body(s, t, u) == s[0]
+}
