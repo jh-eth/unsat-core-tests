@@ -1,0 +1,19 @@
+// Value-origin false-positive test: heap field write/read.
+
+field f: Int
+
+function unused_pre_field_read_int(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller()
+{
+  var r: Ref
+  var x: Int
+  r := new(f)
+  r.f := 5
+  x := r.f
+  assert unused_pre_field_read_int(x) == 0
+}

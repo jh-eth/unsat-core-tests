@@ -1,0 +1,14 @@
+// Value-origin false-positive test: sequence append.
+
+function unused_pre_seq_append(s: Seq[Int]): Int
+  requires |s| > 0
+{
+  0
+}
+
+method caller()
+{
+  var s: Seq[Int]
+  s := Seq[Int]() ++ Seq(1)
+  assert unused_pre_seq_append(s) == 0
+}

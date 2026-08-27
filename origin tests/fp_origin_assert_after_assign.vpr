@@ -1,0 +1,15 @@
+// Value-origin false-positive test: assignment plus assert.
+
+function unused_pre_assert_after_assignment_int(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller()
+{
+  var x: Int
+  x := 5
+  assert x > 0
+  assert unused_pre_assert_after_assignment_int(x) == 0
+}

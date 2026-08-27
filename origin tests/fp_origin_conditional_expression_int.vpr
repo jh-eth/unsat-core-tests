@@ -1,0 +1,14 @@
+// Value-origin false-positive test: conditional expression.
+
+function unused_pre_conditional_expression_int(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller(b: Bool)
+{
+  var p: Int
+  p := (b ? 5 : 6)
+  assert unused_pre_conditional_expression_int(p) == 0
+}

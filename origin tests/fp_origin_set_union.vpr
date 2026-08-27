@@ -1,0 +1,14 @@
+// Value-origin false-positive test: set union.
+
+function unused_pre_set_union(s: Set[Int]): Int
+  requires 1 in s
+{
+  0
+}
+
+method caller()
+{
+  var s: Set[Int]
+  s := Set[Int]() union Set(1)
+  assert unused_pre_set_union(s) == 0
+}

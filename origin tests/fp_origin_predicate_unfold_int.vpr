@@ -1,0 +1,32 @@
+// Value-origin false-positive test: predicate unfold.
+
+field f: Int
+
+predicate PosField(r: Ref)
+{
+  acc(r.f) && r.f > 0
+}
+
+method  hide(r: Ref)
+  requires PosField(r)
+  ensures PosField(r)
+
+
+function unused_pre_predicate_unfold_int(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller()
+{
+  var r: Ref
+  var x: Int
+  r := new(f)
+  r.f := 5
+  fold PosField(r)
+  hide(r)
+  unfold PosField(r)
+  x := r.f
+  assert unused_pre_predicate_unfold_int(x) == 0
+}

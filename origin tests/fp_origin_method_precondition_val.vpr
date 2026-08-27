@@ -1,0 +1,13 @@
+// Value-origin false-positive test: caller method precondition.
+
+function unused_pre_method_precondition_val(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller(x: Int)
+  requires x == 3
+{
+  assert unused_pre_method_precondition_val(x) == 0
+}

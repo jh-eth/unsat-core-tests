@@ -1,0 +1,20 @@
+// Value-origin false-positive test: helper method postcondition.
+
+method makePositive() returns (x: Int)
+  ensures x == 5
+{
+  x := 5
+}
+
+function unused_pre_method_postcondition_int(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller()
+{
+  var x: Int
+  x := makePositive()
+  assert unused_pre_method_postcondition_int(x) == 0
+}

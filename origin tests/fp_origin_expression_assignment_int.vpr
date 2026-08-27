@@ -1,0 +1,14 @@
+// Value-origin false-positive test: expression assignment.
+
+function unused_pre_expression_assignment_int(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller()
+{
+  var x: Int
+  x := 2 + 3
+  assert unused_pre_expression_assignment_int(x) == 0
+}

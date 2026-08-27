@@ -1,0 +1,16 @@
+// Value-origin false-positive test: local alias.
+
+function unused_pre_alias_int(y: Int): Int
+  requires y > 0
+{
+  0
+}
+
+method caller()
+{
+  var x: Int
+  var y: Int
+  x := 5
+  y := x
+  assert unused_pre_alias_int(y) == 0
+}

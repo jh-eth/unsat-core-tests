@@ -1,0 +1,20 @@
+// Value-origin false-positive test: quantified fact without domain.
+
+function mark(i: Int): Bool
+
+function unused_pre_quantifier_int(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller()
+{
+  var x: Int
+
+  inhale mark(x)
+  inhale forall i: Int :: { mark(i) } mark(i) ==> i > 0
+
+  assert x > 0
+  assert unused_pre_quantifier_int(x) == 0
+}

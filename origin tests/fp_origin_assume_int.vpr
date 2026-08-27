@@ -1,0 +1,14 @@
+// Value-origin false-positive test: assume.
+
+function unused_pre_assume_int(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller()
+{
+  var x: Int
+  assume x > 0
+  assert unused_pre_assume_int(x) == 0
+}
