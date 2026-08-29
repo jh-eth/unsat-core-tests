@@ -1,0 +1,31 @@
+// Value-origin false-positive test: predicate unfold.
+
+field f: Int
+
+predicate Five(r: Ref)
+{
+  acc(r.f) && r.f == 5
+}
+
+method  hide(r: Ref)
+  requires Five(r)
+  ensures Five(r)
+
+
+function unused_pre_predicate_unfold_int(x: Int): Int
+  requires x > 0
+{
+  0
+}
+
+method caller()
+{
+  var r: Ref
+  var x: Int
+  r := new(f)
+  r.f := 5
+  fold Five(r)
+  hide(r)
+  unfold Five(r)
+  assert unused_pre_predicate_unfold_int(r.f) == 0
+}
