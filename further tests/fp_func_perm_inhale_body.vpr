@@ -1,0 +1,18 @@
+// perm inhale test with one used and one unused precondition.
+
+function used_unused_perm_inhale(r: Perm, u: Perm, v: Perm): Int
+  requires r > none && u > none
+{
+  r > none ? 1 : 0
+}
+
+method caller()
+{
+  var r: Perm
+  var u: Perm
+  var v: Perm
+  inhale u > none
+  inhale u == v
+  inhale r > none
+  assert used_unused_perm_inhale(r, u, v) == 1
+}

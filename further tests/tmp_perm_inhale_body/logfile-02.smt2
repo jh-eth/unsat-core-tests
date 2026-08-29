@@ -1,8 +1,8 @@
 (get-info :version)
 ; (:version "4.8.12")
-; Started: 2026-08-29 13:54:31
+; Started: 2026-08-29 13:59:19
 ; Silicon.version: 1.1-SNAPSHOT (39958bc4+@keuscha/dependency_analysis_refactoring)
-; Input file: /workspaces/develop/precision_tests/further_test_successful_used_preconditions/fp_func_ref_direct_body.vpr
+; Input file: /workspaces/develop/precision_tests/further_test_successful_used_preconditions/fp_func_perm_inhale_body.vpr
 ; Verifier id: 00
 ; ------------------------------------------------------------
 ; Begin preamble
@@ -97,10 +97,10 @@
     )))
 ; ////////// Symbols
 ; Declaring symbols related to program functions (from program analysis)
-(declare-fun ref_direct_body ($Snap $Ref $Ref $Ref) Int)
-(declare-fun ref_direct_body%limited ($Snap $Ref $Ref $Ref) Int)
-(declare-fun ref_direct_body%stateless ($Ref $Ref $Ref) Bool)
-(declare-fun ref_direct_body%precondition ($Snap $Ref $Ref $Ref) Bool)
+(declare-fun used_unused_perm_inhale ($Snap $Perm $Perm $Perm) Int)
+(declare-fun used_unused_perm_inhale%limited ($Snap $Perm $Perm $Perm) Int)
+(declare-fun used_unused_perm_inhale%stateless ($Perm $Perm $Perm) Bool)
+(declare-fun used_unused_perm_inhale%precondition ($Snap $Perm $Perm $Perm) Bool)
 ; Snapshot variable to be used during function verification
 (declare-fun s@$ () $Snap)
 ; Declaring predicate trigger functions
@@ -116,25 +116,27 @@
 ; Begin function- and predicate-related preamble
 ; Declaring symbols related to program functions (from verification)
 ; Declaring symbols related to program functions (from verification)
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Perm) (u@1@00 $Perm) (v@2@00 $Perm)) (!
   (=
-    (ref_direct_body%limited s@$ r@0@00 u@1@00 w@2@00)
-    (ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
-  :pattern ((ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
-  :qid |quant-u-0|)) :named axiom_33))
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
-  (ref_direct_body%stateless r@0@00 u@1@00 w@2@00)
-  :pattern ((ref_direct_body%limited s@$ r@0@00 u@1@00 w@2@00))
-  :qid |quant-u-1|)) :named axiom_34))
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
+    (used_unused_perm_inhale%limited s@$ r@0@00 u@1@00 v@2@00)
+    (used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00))
+  :pattern ((used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00))
+  :qid |quant-u-0|)) :named axiom_46))
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Perm) (u@1@00 $Perm) (v@2@00 $Perm)) (!
+  (used_unused_perm_inhale%stateless r@0@00 u@1@00 v@2@00)
+  :pattern ((used_unused_perm_inhale%limited s@$ r@0@00 u@1@00 v@2@00))
+  :qid |quant-u-1|)) :named axiom_47))
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Perm) (u@1@00 $Perm) (v@2@00 $Perm)) (!
   (=>
-    (ref_direct_body%precondition s@$ r@0@00 u@1@00 w@2@00)
-    (= (ref_direct_body s@$ r@0@00 u@1@00 w@2@00) (ite (= r@0@00 $Ref.null) 0 1)))
-  :pattern ((ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
-  :qid |quant-u-2|)) :named axiom_35))
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
+    (used_unused_perm_inhale%precondition s@$ r@0@00 u@1@00 v@2@00)
+    (=
+      (used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00)
+      (ite (> r@0@00 $Perm.No) 1 0)))
+  :pattern ((used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00))
+  :qid |quant-u-2|)) :named axiom_48))
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Perm) (u@1@00 $Perm) (v@2@00 $Perm)) (!
   true
-  :pattern ((ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
-  :qid |quant-u-3|)) :named axiom_36))
+  :pattern ((used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00))
+  :qid |quant-u-3|)) :named axiom_49))
 ; End function- and predicate-related preamble
 ; ------------------------------------------------------------

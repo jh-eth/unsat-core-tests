@@ -1,8 +1,8 @@
 (get-info :version)
 ; (:version "4.8.12")
-; Started: 2026-08-29 13:54:31
+; Started: 2026-08-29 13:59:19
 ; Silicon.version: 1.1-SNAPSHOT (39958bc4+@keuscha/dependency_analysis_refactoring)
-; Input file: /workspaces/develop/precision_tests/further_test_successful_used_preconditions/fp_func_ref_direct_body.vpr
+; Input file: /workspaces/develop/precision_tests/further_test_successful_used_preconditions/fp_func_perm_inhale_body.vpr
 ; Verifier id: 00
 ; ------------------------------------------------------------
 ; Begin preamble
@@ -97,10 +97,10 @@
     )))
 ; ////////// Symbols
 ; Declaring symbols related to program functions (from program analysis)
-(declare-fun ref_direct_body ($Snap $Ref $Ref $Ref) Int)
-(declare-fun ref_direct_body%limited ($Snap $Ref $Ref $Ref) Int)
-(declare-fun ref_direct_body%stateless ($Ref $Ref $Ref) Bool)
-(declare-fun ref_direct_body%precondition ($Snap $Ref $Ref $Ref) Bool)
+(declare-fun used_unused_perm_inhale ($Snap $Perm $Perm $Perm) Int)
+(declare-fun used_unused_perm_inhale%limited ($Snap $Perm $Perm $Perm) Int)
+(declare-fun used_unused_perm_inhale%stateless ($Perm $Perm $Perm) Bool)
+(declare-fun used_unused_perm_inhale%precondition ($Snap $Perm $Perm $Perm) Bool)
 ; Snapshot variable to be used during function verification
 (declare-fun s@$ () $Snap)
 ; Declaring predicate trigger functions
@@ -116,26 +116,28 @@
 ; Begin function- and predicate-related preamble
 ; Declaring symbols related to program functions (from verification)
 ; Declaring symbols related to program functions (from verification)
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Perm) (u@1@00 $Perm) (v@2@00 $Perm)) (!
   (=
-    (ref_direct_body%limited s@$ r@0@00 u@1@00 w@2@00)
-    (ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
-  :pattern ((ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
-  :qid |quant-u-0|)) :named axiom_29))
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
-  (ref_direct_body%stateless r@0@00 u@1@00 w@2@00)
-  :pattern ((ref_direct_body%limited s@$ r@0@00 u@1@00 w@2@00))
-  :qid |quant-u-1|)) :named axiom_30))
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
+    (used_unused_perm_inhale%limited s@$ r@0@00 u@1@00 v@2@00)
+    (used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00))
+  :pattern ((used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00))
+  :qid |quant-u-0|)) :named axiom_30))
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Perm) (u@1@00 $Perm) (v@2@00 $Perm)) (!
+  (used_unused_perm_inhale%stateless r@0@00 u@1@00 v@2@00)
+  :pattern ((used_unused_perm_inhale%limited s@$ r@0@00 u@1@00 v@2@00))
+  :qid |quant-u-1|)) :named axiom_31))
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Perm) (u@1@00 $Perm) (v@2@00 $Perm)) (!
   (=>
-    (ref_direct_body%precondition s@$ r@0@00 u@1@00 w@2@00)
-    (= (ref_direct_body s@$ r@0@00 u@1@00 w@2@00) (ite (= r@0@00 $Ref.null) 0 1)))
-  :pattern ((ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
-  :qid |quant-u-2|)) :named axiom_31))
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
+    (used_unused_perm_inhale%precondition s@$ r@0@00 u@1@00 v@2@00)
+    (=
+      (used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00)
+      (ite (> r@0@00 $Perm.No) 1 0)))
+  :pattern ((used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00))
+  :qid |quant-u-2|)) :named axiom_32))
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Perm) (u@1@00 $Perm) (v@2@00 $Perm)) (!
   true
-  :pattern ((ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
-  :qid |quant-u-3|)) :named axiom_32))
+  :pattern ((used_unused_perm_inhale s@$ r@0@00 u@1@00 v@2@00))
+  :qid |quant-u-3|)) :named axiom_33))
 ; End function- and predicate-related preamble
 ; ------------------------------------------------------------
 ; ---------- caller ----------
@@ -150,88 +152,99 @@
 (pop) ; 2
 (push) ; 2
 ; [exec]
-; var r: Ref
-(declare-const r@0@06 $Ref)
+; var r: Perm
+(declare-const r@0@06 $Perm)
 ; [exec]
-; var u: Ref
-(declare-const u@1@06 $Ref)
+; var u: Perm
+(declare-const u@1@06 $Perm)
 ; [exec]
-; var v: Ref
-(declare-const v@2@06 $Ref)
+; var v: Perm
+(declare-const v@2@06 $Perm)
 ; [exec]
-; u := new()
-(declare-const u@3@06 $Ref)
-(assert (! (not (= u@3@06 $Ref.null)) :named assumption_53))
-(assert (! (not (= u@3@06 v@2@06)) :named assumption_54))
-(assert (! (not (= u@3@06 u@1@06)) :named assumption_55))
-(assert (! (not (= u@3@06 r@0@06)) :named assumption_56))
+; inhale u > none
+(declare-const $t@3@06 $Snap)
+(assert (! (= $t@3@06 $Snap.unit) :named assumption_54))
+; [eval] u > none
+(assert (! (> u@1@06 $Perm.No) :named assumption_55))
+; State saturation: after inhale
+(set-option :rlimit 200000)
+(check-sat)
+; unknown
 ; [exec]
-; r := new()
-(declare-const r@4@06 $Ref)
-(assert (! (not (= r@4@06 $Ref.null)) :named assumption_57))
-(assert (! (not (= r@4@06 v@2@06)) :named assumption_58))
-(assert (! (not (= r@4@06 r@0@06)) :named assumption_59))
-(assert (! (not (= r@4@06 u@3@06)) :named assumption_60))
+; inhale u == v
+(declare-const $t@4@06 $Snap)
+(assert (! (= $t@4@06 $Snap.unit) :named assumption_56))
+; [eval] u == v
+(assert (! (= u@1@06 v@2@06) :named assumption_57))
+; State saturation: after inhale
+(check-sat)
+; unknown
 ; [exec]
-; v := u
-(declare-const v@5@06 $Ref)
-(assert (! (= v@5@06 u@3@06) :named assumption_61))
+; inhale r > none
+(declare-const $t@5@06 $Snap)
+(assert (! (= $t@5@06 $Snap.unit) :named assumption_58))
+; [eval] r > none
+(assert (! (> r@0@06 $Perm.No) :named assumption_59))
+; State saturation: after inhale
+(check-sat)
+; unknown
 ; [exec]
-; assert ref_direct_body(r, u, v) == 1
-; [eval] ref_direct_body(r, u, v) == 1
-; [eval] ref_direct_body(r, u, v)
+; assert used_unused_perm_inhale(r, u, v) == 1
+; [eval] used_unused_perm_inhale(r, u, v) == 1
+; [eval] used_unused_perm_inhale(r, u, v)
+(set-option :rlimit 0)
 (push) ; 3
-(declare-const $t@6@06 $Ref)
-(assert (! (= $t@6@06 r@4@06) :named assumption_62))
-(declare-const $t@7@06 $Ref)
-(assert (! (= $t@7@06 u@3@06) :named assumption_63))
-(declare-const $t@8@06 $Ref)
-(assert (! (= $t@8@06 v@5@06) :named assumption_64))
-; [eval] r != null
+(declare-const $t@6@06 $Perm)
+(assert (! (= $t@6@06 r@0@06) :named assumption_60))
+(declare-const $t@7@06 $Perm)
+(assert (! (= $t@7@06 u@1@06) :named assumption_61))
+(declare-const $t@8@06 $Perm)
+(assert (! (= $t@8@06 v@2@06) :named assumption_62))
+; [eval] r > none
 (push) ; 4
-(assert (! (not (not (= $t@6@06 $Ref.null))) :named assertion_65))
+(assert (! (not (> $t@6@06 $Perm.No)) :named assertion_63))
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (assumption_57 assumption_62 assertion_65)
+; unsat core: (assumption_59 assumption_60 assertion_63)
 (pop) ; 4
 ; 0.00s
 ; (get-info :all-statistics)
-(assert (! (not (= $t@6@06 $Ref.null)) :named assumption_66))
-; [eval] u != null
+(assert (! (> $t@6@06 $Perm.No) :named assumption_64))
+; [eval] u > none
 (push) ; 4
-(assert (! (not (not (= $t@7@06 $Ref.null))) :named assertion_67))
+(assert (! (not (> $t@7@06 $Perm.No)) :named assertion_65))
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (assumption_53 assumption_63 assertion_67)
+; unsat core: (assumption_55 assumption_61 assertion_65)
 (pop) ; 4
 ; 0.00s
 ; (get-info :all-statistics)
-(assert (! (not (= $t@7@06 $Ref.null)) :named assumption_68))
-(assert (! (ref_direct_body%precondition ($Snap.combine $Snap.unit $Snap.unit) r@4@06 u@3@06 v@5@06) :named assumption_69))
+(assert (! (> $t@7@06 $Perm.No) :named assumption_66))
+(assert (! (used_unused_perm_inhale%precondition ($Snap.combine $Snap.unit $Snap.unit) r@0@06 u@1@06 v@2@06) :named assumption_67))
 (pop) ; 3
 ; Joined path conditions
 (assert (! (and
-  (= $t@6@06 r@4@06)
-  (= $t@7@06 u@3@06)
-  (= $t@8@06 v@5@06)
-  (not (= $t@6@06 $Ref.null))
-  (not (= $t@7@06 $Ref.null))
-  (ref_direct_body%precondition ($Snap.combine $Snap.unit $Snap.unit) r@4@06 u@3@06 v@5@06)) :named assumption_70))
+  (= $t@6@06 r@0@06)
+  (= $t@7@06 u@1@06)
+  (= $t@8@06 v@2@06)
+  (> $t@6@06 $Perm.No)
+  (> $t@7@06 $Perm.No)
+  (used_unused_perm_inhale%precondition ($Snap.combine $Snap.unit $Snap.unit) r@0@06 u@1@06 v@2@06)) :named assumption_68))
 (push) ; 3
 (assert (! (not (=
-  (ref_direct_body ($Snap.combine $Snap.unit $Snap.unit) r@4@06 u@3@06 v@5@06)
-  1)) :named assertion_71))
+  (used_unused_perm_inhale ($Snap.combine $Snap.unit $Snap.unit) r@0@06 u@1@06 v@2@06)
+  1)) :named assertion_69))
 (check-sat)
 ; unsat
 (get-unsat-core)
-; unsat core: (axiom_31 assumption_57 assumption_61 assertion_71 assumption_70)
+; unsat core: (axiom_32 assumption_57 assumption_59 assertion_69 assumption_68)
 (pop) ; 3
 ; 0.00s
 ; (get-info :all-statistics)
 (assert (! (=
-  (ref_direct_body ($Snap.combine $Snap.unit $Snap.unit) r@4@06 u@3@06 v@5@06)
-  1) :named assumption_72))
+  (used_unused_perm_inhale ($Snap.combine $Snap.unit $Snap.unit) r@0@06 u@1@06 v@2@06)
+  1) :named assumption_70))
 (pop) ; 2
 (pop) ; 1

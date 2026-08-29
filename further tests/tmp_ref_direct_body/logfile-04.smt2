@@ -1,7 +1,7 @@
 (get-info :version)
 ; (:version "4.8.12")
-; Started: 2026-08-26 14:53:08
-; Silicon.version: 1.1-SNAPSHOT (b40ab96f+@hollensteinj/path-sensitive_analysis)
+; Started: 2026-08-29 13:54:31
+; Silicon.version: 1.1-SNAPSHOT (39958bc4+@keuscha/dependency_analysis_refactoring)
 ; Input file: /workspaces/develop/precision_tests/further_test_successful_used_preconditions/fp_func_ref_direct_body.vpr
 ; Verifier id: 00
 ; ------------------------------------------------------------
@@ -97,10 +97,10 @@
     )))
 ; ////////// Symbols
 ; Declaring symbols related to program functions (from program analysis)
-(declare-fun ref_direct_body ($Snap $Ref $Ref) Int)
-(declare-fun ref_direct_body%limited ($Snap $Ref $Ref) Int)
-(declare-fun ref_direct_body%stateless ($Ref $Ref) Bool)
-(declare-fun ref_direct_body%precondition ($Snap $Ref $Ref) Bool)
+(declare-fun ref_direct_body ($Snap $Ref $Ref $Ref) Int)
+(declare-fun ref_direct_body%limited ($Snap $Ref $Ref $Ref) Int)
+(declare-fun ref_direct_body%stateless ($Ref $Ref $Ref) Bool)
+(declare-fun ref_direct_body%precondition ($Snap $Ref $Ref $Ref) Bool)
 ; Snapshot variable to be used during function verification
 (declare-fun s@$ () $Snap)
 ; Declaring predicate trigger functions
@@ -116,25 +116,25 @@
 ; Begin function- and predicate-related preamble
 ; Declaring symbols related to program functions (from verification)
 ; Declaring symbols related to program functions (from verification)
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref)) (!
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
   (=
-    (ref_direct_body%limited s@$ r@0@00 u@1@00)
-    (ref_direct_body s@$ r@0@00 u@1@00))
-  :pattern ((ref_direct_body s@$ r@0@00 u@1@00))
+    (ref_direct_body%limited s@$ r@0@00 u@1@00 w@2@00)
+    (ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
+  :pattern ((ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
   :qid |quant-u-0|)) :named axiom_37))
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref)) (!
-  (ref_direct_body%stateless r@0@00 u@1@00)
-  :pattern ((ref_direct_body%limited s@$ r@0@00 u@1@00))
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
+  (ref_direct_body%stateless r@0@00 u@1@00 w@2@00)
+  :pattern ((ref_direct_body%limited s@$ r@0@00 u@1@00 w@2@00))
   :qid |quant-u-1|)) :named axiom_38))
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref)) (!
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
   (=>
-    (ref_direct_body%precondition s@$ r@0@00 u@1@00)
-    (= (ref_direct_body s@$ r@0@00 u@1@00) (ite (= r@0@00 $Ref.null) 0 1)))
-  :pattern ((ref_direct_body s@$ r@0@00 u@1@00))
+    (ref_direct_body%precondition s@$ r@0@00 u@1@00 w@2@00)
+    (= (ref_direct_body s@$ r@0@00 u@1@00 w@2@00) (ite (= r@0@00 $Ref.null) 0 1)))
+  :pattern ((ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
   :qid |quant-u-2|)) :named axiom_39))
-(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref)) (!
+(assert (! (forall ((s@$ $Snap) (r@0@00 $Ref) (u@1@00 $Ref) (w@2@00 $Ref)) (!
   true
-  :pattern ((ref_direct_body s@$ r@0@00 u@1@00))
+  :pattern ((ref_direct_body s@$ r@0@00 u@1@00 w@2@00))
   :qid |quant-u-3|)) :named axiom_40))
 ; End function- and predicate-related preamble
 ; ------------------------------------------------------------
